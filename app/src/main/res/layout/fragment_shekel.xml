@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".fragment.shekel.ShekelFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorText"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="Шекель"
+        />
+    <EditText
+        android:id="@+id/ed_shek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Введите шекель"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:inputType="number"
+        android:textColor="@color/colorText" />
+
+    <Button
+        android:id="@+id/btn_convert2"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="Перевести"
+        android:textColor="@color/colorText" />
+
+</FrameLayout>
