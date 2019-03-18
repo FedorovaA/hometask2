@@ -3,31 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragment.tenge.TengeFragment">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".fragment.shekel.CurrencyFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorText"
-        android:text="Тенге"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:hint="Шекель"
+        />
     <EditText
-        android:id="@+id/ed_ten"
+        android:id="@+id/ed_shek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Введите тенге"
+        android:hint="Введите шекель"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="70dp"
         android:inputType="number"
         android:textColor="@color/colorText" />
 
     <Button
-        android:id="@+id/btn_convert3"
+        android:id="@+id/btn_convert2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:text="Перевести"
         android:textColor="@color/colorText" />

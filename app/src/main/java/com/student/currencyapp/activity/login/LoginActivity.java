@@ -11,11 +11,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.student.currencyapp.R;
+import com.student.currencyapp.activity.bottom.BottomActivity;
 import com.student.currencyapp.activity.drawer.DrawerActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
     Button drawer;
+    Intent intent;
+    Button bottom;
     EditText pas;
     EditText log;
     private LoginPresenter loginPresenter;
@@ -28,10 +31,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         pas = findViewById(R.id.ed_password);
         drawer = findViewById(R.id.btn_drawerIn);
         log = findViewById(R.id.ed_login);
+        bottom = findViewById(R.id.btn_bottomIn);
         drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginPresenter.onLogin(String.valueOf(log.getText()),String.valueOf(pas.getText()));
+                loginPresenter.onLogin(String.valueOf(log.getText()),String.valueOf(pas.getText()),true);
+            }
+        });
+        bottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginPresenter.onLogin(String.valueOf(log.getText()),String.valueOf(pas.getText()),false);
             }
         });
 
@@ -48,8 +58,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void onProceed() {
-        Intent intent = new Intent(getContext(), DrawerActivity.class);
+    public void onProceed(Boolean param) {
+        if(param){
+            intent = new Intent(getContext(), DrawerActivity.class);
+        }
+        else {
+            intent = new Intent(getContext(), BottomActivity.class);
+        }
         startActivity(intent);
     }
 

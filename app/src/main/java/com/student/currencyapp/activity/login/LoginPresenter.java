@@ -12,11 +12,11 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public LoginPresenter() { }
 
-    public void onLogin(String log,String pas){
+    public void onLogin(String log,String pas,Boolean param){
         if(pas.equals(password)){
             view.onLoginSucess("Wellcome");
             LoginController.getInstance().setLogin(log);
-            view.onProceed();
+            view.onProceed(param);
         }
         else {
             view.onLoginError("Invalid data");

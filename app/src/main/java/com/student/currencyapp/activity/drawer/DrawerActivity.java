@@ -1,6 +1,5 @@
 package com.student.currencyapp.activity.drawer;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,21 +11,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.student.currencyapp.R;
-import com.student.currencyapp.fragment.euro.EuroFragment;
 import com.student.currencyapp.fragment.ruble.RubleFragment;
-import com.student.currencyapp.fragment.shekel.ShekelFragment;
-import com.student.currencyapp.fragment.tenge.TengeFragment;
+import com.student.currencyapp.fragment.shekel.CurrencyFragment;
 import com.student.currencyapp.utils.LoginController;
 
 public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, RubleFragment.OnFragmentInteractionListener, TengeFragment.OnFragmentInteractionListener, ShekelFragment.OnFragmentInteractionListener,EuroFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RubleFragment.OnFragmentInteractionListener, CurrencyFragment.OnFragmentInteractionListener {
 
-    private RubleFragment rubleFragment;
-    private ShekelFragment shekelFragment;
-    private EuroFragment euroFragment;
-    private TengeFragment tengeFragment;
+    private CurrencyFragment currencyFragment1;
+    private CurrencyFragment currencyFragment2;
+    private CurrencyFragment currencyFragment3;
+    private RubleFragment rubleFragment1;
+    private RubleFragment rubleFragment2;
+    private RubleFragment rubleFragment3;
 
     private TextView txt;
 
@@ -42,10 +42,12 @@ public class DrawerActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        tengeFragment = new TengeFragment();
-        shekelFragment = new ShekelFragment();
-        rubleFragment = new RubleFragment();
-        euroFragment = new EuroFragment();
+        currencyFragment1 = CurrencyFragment.newInstance("SHEKEL");
+        currencyFragment2 = CurrencyFragment.newInstance("EURO");
+        currencyFragment3 = CurrencyFragment.newInstance("TENGE");
+        rubleFragment1 = RubleFragment.newInstance("SHEKEL");
+        rubleFragment2 = RubleFragment.newInstance("EURO");
+        rubleFragment3 = RubleFragment.newInstance("TENGE");
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -55,7 +57,8 @@ public class DrawerActivity extends AppCompatActivity
         txt.setText(LoginController.getInstance().getLogin());
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frag_cont1, rubleFragment)
+                    .replace(R.id.frag_cont1,rubleFragment1)
+                    .replace(R.id.frag_cont2, currencyFragment1)
                     .commit();
         }
     }
@@ -95,24 +98,23 @@ public class DrawerActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         switch (item.getItemId()){
             case R.id.nav_shekel:
-                rubleFragment.getParams(1);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frag_cont2, shekelFragment)
+                        .replace(R.id.frag_cont1,rubleFragment1)
+                        .replace(R.id.frag_cont2, currencyFragment1)
                         .commit();
                 break;
             case R.id.nav_euro:
-                rubleFragment.getParams(3);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frag_cont2, euroFragment)
+                        .replace(R.id.frag_cont1,rubleFragment2)
+                        .replace(R.id.frag_cont2, currencyFragment2)
                         .commit();
                 break;
             case R.id.nav_tenge:
-                rubleFragment.getParams(2);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frag_cont2, tengeFragment)
+                        .replace(R.id.frag_cont1,rubleFragment3)
+                        .replace(R.id.frag_cont2, currencyFragment3)
                         .commit();
                 break;
         }
@@ -122,31 +124,43 @@ public class DrawerActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
+
+    @Override
+    public void onInputCurrencySent(String input, String param) {
+        switch (param)
+        {
+            case "SHEKEL":
+                rubleFragment1.updateRubleText(input);
+                break;
+            case "EURO":
+                rubleFragment2.updateRubleText(input);
+                break;
+            case "TENGE":
+                rubleFragment3.updateRubleText(input);
+                break;
+        }
     }
 
     @Override
-    public void onInputEuroSent(CharSequence input) {
-        rubleFragment.updateRubleText(input);
+    public void onInputRubleSent(String input,String param) {
+        switch (param)
+        {
+            case "SHEKEL":
+                currencyFragment1.updateCurrencyText(input);
+                break;
+            case "EURO":
+                currencyFragment2.updateCurrencyText(input);
+                break;
+            case "TENGE":
+                currencyFragment3.updateCurrencyText(input);
+                break;
+        }
     }
 
     @Override
-    public void onInputTengeSent(CharSequence input) {
-        rubleFragment.updateRubleText(input);
-    }
-
-    @Override
-    public void onInputShekelSent(CharSequence input) {
-        rubleFragment.updateRubleText(input);
-    }
-
-    @Override
-    public void onInputRubleSent(CharSequence input) {
-        shekelFragment.updateShekelText(input);
-        euroFragment.updateEuroText(input);
-        tengeFragment.updateTengeText(input);
+    public void onMessage(String message) {
+        Toast.makeText(DrawerActivity.this,message,Toast.LENGTH_SHORT).show();
     }
 
 }

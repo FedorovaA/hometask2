@@ -14,7 +14,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:textColor="@color/colorText"
-        android:text="Рубли"
+        android:text="RUBLE"
         />
     <EditText
         android:id="@+id/ed_rub"
